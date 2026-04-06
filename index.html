@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peacock Jobs — Coming Soon</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #0D7A6B;
+    --teal-light: #14A98F;
+    --gold: #C9A84C;
+    --gold-light: #E8C96A;
+    --ink: #0A1A18;
+    --cream: #F7F4EE;
+    --muted: #8A9490;
+    --white: #ffffff;
+  }
+
+  html, body { min-height: 100%; overflow-y: auto; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--ink);
+    color: var(--cream);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 60px 24px 100px;
+  }
+
+  /* Background orbs */
+  .peacock-bg { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  .orb { position:absolute; border-radius:50%; filter:blur(90px); opacity:0.38; animation:drift 14s ease-in-out infinite alternate; }
+  .orb-1 { width:700px;height:700px;background:radial-gradient(circle,#1B6B5A 0%,transparent 70%);top:-250px;left:-150px;animation-delay:0s; }
+  .orb-2 { width:600px;height:600px;background:radial-gradient(circle,#2D1B6B 0%,transparent 70%);bottom:-200px;right:-150px;animation-delay:-5s; }
+  .orb-3 { width:400px;height:400px;background:radial-gradient(circle,#1B4A6B 0%,transparent 70%);top:40%;left:55%;animation-delay:-9s;opacity:0.18; }
+  @keyframes drift { from{transform:translate(0,0) scale(1)} to{transform:translate(50px,35px) scale(1.1)} }
+
+  /* Main stage */
+  .stage {
+    position:relative; z-index:10; text-align:center;
+    max-width:780px; width:100%;
+    animation: fadeUp 1.2s cubic-bezier(0.16,1,0.3,1) both;
+  }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(40px)} to{opacity:1;transform:translateY(0)} }
+
+  /* Logo */
+  .logo-mark { display:inline-flex;align-items:center;justify-content:center;margin-bottom:32px;position:relative; }
+  .peacock-ring { width:160px;height:160px;animation:rotateSlow 24s linear infinite; }
+  @keyframes rotateSlow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+
+  .peacock-center {
+    position:absolute; width:72px; height:72px; border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#1ABFA0,#0D7A6B 60%,#084d43);
+    display:flex; align-items:center; justify-content:center;
+    font-size:36px;
+    box-shadow:0 0 40px rgba(13,122,107,0.7),0 0 80px rgba(13,122,107,0.3);
+    animation:pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100%{box-shadow:0 0 30px rgba(13,122,107,0.6),0 0 60px rgba(13,122,107,0.2)}
+    50%{box-shadow:0 0 55px rgba(13,122,107,0.9),0 0 100px rgba(13,122,107,0.35)}
+  }
+
+  /* Brand */
+  .brand { display:flex;align-items:baseline;justify-content:center;gap:14px;margin-bottom:10px; }
+  .brand-peacock { font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,5.5rem);font-weight:700;color:var(--cream);line-height:1; }
+  .brand-jobs { font-family:'DM Sans',sans-serif;font-size:clamp(3rem,8vw,5.5rem);font-weight:300;color:var(--teal-light);letter-spacing:0.08em;line-height:1; }
+
+  .domain-pill {
+    display:inline-block;font-size:12px;font-weight:400;letter-spacing:0.12em;
+    text-transform:uppercase;color:var(--teal-light);
+    border:1px solid rgba(20,169,143,0.4);border-radius:100px;
+    padding:4px 14px;margin-bottom:36px;opacity:0.85;
+  }
+
+  .headline { font-family:'Playfair Display',serif;font-size:clamp(1.4rem,3.5vw,2.1rem);font-weight:400;line-height:1.45;color:var(--cream);margin-bottom:16px;opacity:0.9; }
+  .headline em { font-style:italic;color:var(--gold-light); }
+
+  .sub { font-size:15px;font-weight:300;color:var(--muted);line-height:1.7;max-width:500px;margin:0 auto 48px; }
+
+  .coming-soon-wrap { display:flex;align-items:center;justify-content:center;gap:18px;margin-bottom:48px; }
+  .cs-line { flex:1;max-width:100px;height:1px;background:linear-gradient(to right,transparent,rgba(201,168,76,0.4)); }
+  .cs-line.right { background:linear-gradient(to left,transparent,rgba(201,168,76,0.4)); }
+  .cs-text { font-size:11px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold); }
+
+  .signup-form {
+    display:flex;align-items:center;max-width:460px;margin:0 auto 20px;
+    background:rgba(247,244,238,0.05);border:1px solid rgba(247,244,238,0.12);
+    border-radius:100px;padding:6px 6px 6px 22px;transition:border-color 0.3s;
+  }
+  .signup-form:focus-within { border-color:rgba(13,122,107,0.5); }
+  .signup-form input { flex:1;background:none;border:none;outline:none;color:var(--cream);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300; }
+  .signup-form input::placeholder { color:rgba(247,244,238,0.3); }
+
+  .btn-notify {
+    background:linear-gradient(135deg,var(--teal),var(--teal-light));color:var(--white);
+    border:none;border-radius:100px;padding:10px 22px;
+    font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+    letter-spacing:0.03em;cursor:pointer;white-space:nowrap;
+    transition:transform 0.2s,box-shadow 0.2s;
+  }
+  .btn-notify:hover { transform:scale(1.03);box-shadow:0 4px 20px rgba(13,122,107,0.5); }
+  .btn-notify:active { transform:scale(0.98); }
+
+  .privacy-note { font-size:11px;color:rgba(247,244,238,0.25);letter-spacing:0.04em; }
+
+  .contact-section { margin-top:40px;padding-top:28px;border-top:1px solid rgba(247,244,238,0.08); }
+  .contact-label { font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px; }
+  .contact-links { display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 20px; }
+  .contact-links a { display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:400;color:rgba(247,244,238,0.65);text-decoration:none;letter-spacing:0.01em;transition:color 0.2s; }
+  .contact-links a:hover { color:var(--teal-light); }
+  .contact-sep { width:3px;height:3px;border-radius:50%;background:rgba(247,244,238,0.2);display:inline-block; }
+  .vanity-note { font-size:10px;color:rgba(247,244,238,0.2);letter-spacing:0.05em;margin-top:5px; }
+
+  .tagline-row { position:fixed;bottom:24px;left:0;right:0;text-align:center;z-index:10;display:flex;align-items:center;justify-content:center;gap:12px; }
+  .dot { width:4px;height:4px;border-radius:50%;background:var(--teal-light);opacity:0.5; }
+  .tagline-txt { font-size:11px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:rgba(247,244,238,0.25); }
+</style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="peacock-bg">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Large peacock — bottom right -->
+  <svg style="position:absolute;bottom:-60px;right:-80px;width:700px;height:800px;opacity:0.14;" viewBox="0 0 500 580" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Tail feathers -->
+    <ellipse cx="250" cy="300" rx="14" ry="132" fill="#0D7A6B" transform="rotate(-55 250 300)"/>
+    <ellipse cx="250" cy="300" rx="7" ry="116" fill="#14A98F" transform="rotate(-55 250 300)"/>
+    <circle cx="163" cy="188" r="20" fill="none" stroke="#C9A84C" stroke-width="3.5"/>
+    <circle cx="163" cy="188" r="11" fill="#0D7A6B"/><circle cx="163" cy="188" r="5" fill="#1ABFA0"/>
+
+    <ellipse cx="250" cy="300" rx="14" ry="132" fill="#0A6B5C" transform="rotate(-40 250 300)"/>
+    <ellipse cx="250" cy="300" rx="7" ry="116" fill="#14A98F" transform="rotate(-40 250 300)"/>
+    <circle cx="196" cy="168" r="20" fill="none" stroke="#E8C96A" stroke-width="3.5"/>
+    <circle cx="196" cy="168" r="11" fill="#0D7A6B"/><circle cx="196" cy="168" r="5" fill="#C9A84C"/>
+
+    <ellipse cx="250" cy="300" rx="15" ry="138" fill="#0D7A6B" transform="rotate(-24 250 300)"/>
+    <ellipse cx="250" cy="300" rx="8" ry="122" fill="#1ABFA0" transform="rotate(-24 250 300)"/>
+    <circle cx="224" cy="156" r="22" fill="none" stroke="#C9A84C" stroke-width="4"/>
+    <circle cx="224" cy="156" r="12" fill="#0D7A6B"/><circle cx="224" cy="156" r="6" fill="#14A98F"/>
+
+    <ellipse cx="250" cy="300" rx="16" ry="144" fill="#0A6B5C" transform="rotate(-8 250 300)"/>
+    <ellipse cx="250" cy="300" rx="9" ry="128" fill="#14A98F" transform="rotate(-8 250 300)"/>
+    <circle cx="248" cy="150" r="24" fill="none" stroke="#E8C96A" stroke-width="4"/>
+    <circle cx="248" cy="150" r="13" fill="#0D7A6B"/><circle cx="248" cy="150" r="6" fill="#C9A84C"/>
+
+    <ellipse cx="250" cy="300" rx="15" ry="140" fill="#0D7A6B" transform="rotate(8 250 300)"/>
+    <ellipse cx="250" cy="300" rx="8" ry="124" fill="#1ABFA0" transform="rotate(8 250 300)"/>
+    <circle cx="276" cy="154" r="22" fill="none" stroke="#C9A84C" stroke-width="4"/>
+    <circle cx="276" cy="154" r="12" fill="#0D7A6B"/><circle cx="276" cy="154" r="6" fill="#14A98F"/>
+
+    <ellipse cx="250" cy="300" rx="14" ry="134" fill="#0A6B5C" transform="rotate(24 250 300)"/>
+    <ellipse cx="250" cy="300" rx="7" ry="118" fill="#14A98F" transform="rotate(24 250 300)"/>
+    <circle cx="304" cy="165" r="20" fill="none" stroke="#E8C96A" stroke-width="3.5"/>
+    <circle cx="304" cy="165" r="11" fill="#0D7A6B"/><circle cx="304" cy="165" r="5" fill="#C9A84C"/>
+
+    <ellipse cx="250" cy="300" rx="14" ry="130" fill="#0D7A6B" transform="rotate(40 250 300)"/>
+    <ellipse cx="250" cy="300" rx="7" ry="114" fill="#1ABFA0" transform="rotate(40 250 300)"/>
+    <circle cx="328" cy="182" r="19" fill="none" stroke="#C9A84C" stroke-width="3.5"/>
+    <circle cx="328" cy="182" r="10" fill="#0D7A6B"/><circle cx="328" cy="182" r="5" fill="#14A98F"/>
+
+    <ellipse cx="250" cy="300" rx="13" ry="124" fill="#0A6B5C" transform="rotate(55 250 300)"/>
+    <ellipse cx="250" cy="300" rx="6" ry="108" fill="#14A98F" transform="rotate(55 250 300)"/>
+    <circle cx="344" cy="206" r="18" fill="none" stroke="#E8C96A" stroke-width="3"/>
+    <circle cx="344" cy="206" r="9" fill="#0D7A6B"/><circle cx="344" cy="206" r="4" fill="#C9A84C"/>
+
+    <!-- Body -->
+    <ellipse cx="250" cy="372" rx="40" ry="62" fill="#0A5A4E"/>
+    <!-- Neck -->
+    <ellipse cx="250" cy="308" rx="20" ry="36" fill="#0D7A6B"/>
+    <!-- Head -->
+    <circle cx="250" cy="276" r="24" fill="#0A5A4E"/>
+    <!-- Crest -->
+    <ellipse cx="241" cy="254" rx="3.5" ry="16" fill="#C9A84C" transform="rotate(-14 241 254)"/>
+    <ellipse cx="250" cy="251" rx="3.5" ry="18" fill="#E8C96A"/>
+    <ellipse cx="259" cy="254" rx="3.5" ry="16" fill="#C9A84C" transform="rotate(14 259 254)"/>
+    <circle cx="241" cy="240" r="5" fill="#E8C96A"/>
+    <circle cx="250" cy="236" r="5" fill="#C9A84C"/>
+    <circle cx="259" cy="240" r="5" fill="#E8C96A"/>
+    <!-- Eye -->
+    <circle cx="258" cy="274" r="6" fill="#E8C96A"/>
+    <circle cx="259" cy="274" r="3" fill="#0A1A18"/>
+    <!-- Beak -->
+    <path d="M264 280 L277 283 L264 287 Z" fill="#C9A84C"/>
+    <!-- Legs -->
+    <line x1="238" y1="432" x2="230" y2="476" stroke="#0D7A6B" stroke-width="5" stroke-linecap="round"/>
+    <line x1="262" y1="432" x2="270" y2="476" stroke="#0D7A6B" stroke-width="5" stroke-linecap="round"/>
+    <line x1="230" y1="476" x2="215" y2="485" stroke="#0D7A6B" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="230" y1="476" x2="230" y2="487" stroke="#0D7A6B" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="230" y1="476" x2="244" y2="485" stroke="#0D7A6B" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="270" y1="476" x2="255" y2="485" stroke="#0D7A6B" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="270" y1="476" x2="270" y2="487" stroke="#0D7A6B" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="270" y1="476" x2="283" y2="485" stroke="#0D7A6B" stroke-width="3.5" stroke-linecap="round"/>
+  </svg>
+
+  <!-- Smaller mirrored peacock — top left -->
+  <svg style="position:absolute;top:-40px;left:-70px;width:340px;height:400px;opacity:0.09;transform:scaleX(-1) rotate(-10deg);" viewBox="0 0 500 580" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="250" cy="300" rx="13" ry="120" fill="#14A98F" transform="rotate(-48 250 300)"/>
+    <circle cx="172" cy="196" r="17" fill="none" stroke="#C9A84C" stroke-width="3"/><circle cx="172" cy="196" r="9" fill="#0D7A6B"/>
+    <ellipse cx="250" cy="300" rx="13" ry="126" fill="#0D7A6B" transform="rotate(-28 250 300)"/>
+    <circle cx="212" cy="168" r="19" fill="none" stroke="#E8C96A" stroke-width="3"/><circle cx="212" cy="168" r="10" fill="#14A98F"/>
+    <ellipse cx="250" cy="300" rx="14" ry="132" fill="#14A98F" transform="rotate(-8 250 300)"/>
+    <circle cx="252" cy="160" r="21" fill="none" stroke="#C9A84C" stroke-width="3"/><circle cx="252" cy="160" r="11" fill="#0D7A6B"/>
+    <ellipse cx="250" cy="300" rx="13" ry="124" fill="#0D7A6B" transform="rotate(14 250 300)"/>
+    <circle cx="292" cy="168" r="18" fill="none" stroke="#E8C96A" stroke-width="2.5"/><circle cx="292" cy="168" r="9" fill="#14A98F"/>
+    <ellipse cx="250" cy="300" rx="12" ry="116" fill="#14A98F" transform="rotate(34 250 300)"/>
+    <circle cx="325" cy="190" r="16" fill="none" stroke="#C9A84C" stroke-width="2.5"/><circle cx="325" cy="190" r="8" fill="#0D7A6B"/>
+    <ellipse cx="250" cy="372" rx="36" ry="58" fill="#0A5A4E"/>
+    <ellipse cx="250" cy="310" rx="18" ry="33" fill="#0D7A6B"/>
+    <circle cx="250" cy="282" r="21" fill="#0A5A4E"/>
+  </svg>
+</div>
+
+<main class="stage">
+
+  <!-- Logo -->
+  <div class="logo-mark">
+    <svg class="peacock-ring" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="80" cy="18" rx="6" ry="16" fill="#0D7A6B" transform="rotate(0 80 80)"/>
+      <ellipse cx="80" cy="18" rx="5" ry="14" fill="#14A98F" transform="rotate(22.5 80 80)"/>
+      <ellipse cx="80" cy="18" rx="6" ry="16" fill="#C9A84C" transform="rotate(45 80 80)"/>
+      <ellipse cx="80" cy="18" rx="5" ry="14" fill="#0D7A6B" transform="rotate(67.5 80 80)"/>
+      <ellipse cx="80" cy="18" rx="6" ry="16" fill="#14A98F" transform="rotate(90 80 80)"/>
+      <ellipse cx="80" cy="18" rx="5" ry="14" fill="#E8C96A" transform="rotate(112.5 80 80)"/>
+      <ellipse cx="80" cy="18" rx="6" ry="16" fill="#0D7A6B" transform="rotate(135 80 80)"/>
+      <ellipse cx="80" cy="18" rx="5" ry="14" fill="#14A98F" transform="rotate(157.5 80 80)"/>
+      <ellipse cx="80" cy="18" rx="6" ry="16" fill="#C9A84C" transform="rotate(180 80 80)"/>
+      <ellipse cx="80" cy="18" rx="5" ry="14" fill="#0D7A6B" transform="rotate(202.5 80 80)"/>
+      <ellipse cx="80" cy="18" rx="6" ry="16" fill="#14A98F" transform="rotate(225 80 80)"/>
+      <ellipse cx="80" cy="18" rx="5" ry="14" fill="#E8C96A" transform="rotate(247.5 80 80)"/>
+      <ellipse cx="80" cy="18" rx="6" ry="16" fill="#0D7A6B" transform="rotate(270 80 80)"/>
+      <ellipse cx="80" cy="18" rx="5" ry="14" fill="#14A98F" transform="rotate(292.5 80 80)"/>
+      <ellipse cx="80" cy="18" rx="6" ry="16" fill="#C9A84C" transform="rotate(315 80 80)"/>
+      <ellipse cx="80" cy="18" rx="5" ry="14" fill="#0D7A6B" transform="rotate(337.5 80 80)"/>
+      <circle cx="80" cy="6" r="4" fill="#0A1A18" transform="rotate(0 80 80)"/>
+      <circle cx="80" cy="6" r="4" fill="#0A1A18" transform="rotate(45 80 80)"/>
+      <circle cx="80" cy="6" r="4" fill="#0A1A18" transform="rotate(90 80 80)"/>
+      <circle cx="80" cy="6" r="4" fill="#0A1A18" transform="rotate(135 80 80)"/>
+      <circle cx="80" cy="6" r="4" fill="#0A1A18" transform="rotate(180 80 80)"/>
+      <circle cx="80" cy="6" r="4" fill="#0A1A18" transform="rotate(225 80 80)"/>
+      <circle cx="80" cy="6" r="4" fill="#0A1A18" transform="rotate(270 80 80)"/>
+      <circle cx="80" cy="6" r="4" fill="#0A1A18" transform="rotate(315 80 80)"/>
+      <circle cx="80" cy="80" r="30" fill="#0A1A18"/>
+    </svg>
+    <div class="peacock-center">🦚</div>
+  </div>
+
+  <!-- Brand -->
+  <div class="brand">
+    <span class="brand-peacock">Peacock</span>
+    <span class="brand-jobs">jobs</span>
+  </div>
+
+  <div class="domain-pill">peacockjobs.com</div>
+
+  <h1 class="headline">
+    The <em>world's finest</em> job search experience<br>is spreading its wings.
+  </h1>
+
+  <p class="sub">
+    We're building something extraordinary — a job platform worthy of your ambition.
+    Be first to know when we launch.
+  </p>
+
+  <div class="coming-soon-wrap">
+    <div class="cs-line"></div>
+    <span class="cs-text">Coming Soon</span>
+    <div class="cs-line right"></div>
+  </div>
+
+  <div class="signup-form">
+    <input type="email" placeholder="Enter your email address" />
+    <button class="btn-notify">Notify Me</button>
+  </div>
+
+  <p class="privacy-note">No spam, ever. Unsubscribe any time.</p>
+
+  <div class="contact-section">
+    <p class="contact-label">Contact Us</p>
+    <div class="contact-links">
+      <a href="mailto:info@peacockjobs.com">✉ info@peacockjobs.com</a>
+      <span class="contact-sep"></span>
+      <a href="tel:+18727322625">☎ +1 (872) 732-2625</a>
+    </div>
+    <p class="vanity-note">Easy to remember: dial 872-PEACOCK</p>
+  </div>
+
+</main>
+
+<div class="tagline-row">
+  <div class="dot"></div>
+  <span class="tagline-txt">The Best Job Search Website in the World</span>
+  <div class="dot"></div>
+</div>
+
+<script>
+  const btn = document.querySelector('.btn-notify');
+  const input = document.querySelector('.signup-form input');
+  btn.addEventListener('click', () => {
+    const email = input.value.trim();
+    if (!email || !email.includes('@')) {
+      input.style.color = '#E06060';
+      input.placeholder = 'Please enter a valid email';
+      setTimeout(() => { input.style.color = ''; input.placeholder = 'Enter your email address'; }, 2000);
+      return;
+    }
+    btn.textContent = "You're on the list ✓";
+    btn.style.background = 'linear-gradient(135deg,#C9A84C,#E8C96A)';
+    btn.style.color = '#0A1A18';
+    input.value = '';
+    input.placeholder = 'Thank you!';
+    input.disabled = true;
+    btn.disabled = true;
+  });
+</script>
+</body>
+</html>
